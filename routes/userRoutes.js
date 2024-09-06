@@ -10,8 +10,14 @@ const config = require('../config/config');
 user_route.set('view engine','ejs');
 user_route.set('views','./views/users')
 
+// public set
+user_route.use(express.static('public'));
 
-const auth = require("../middleware/auth");
+
+// middleware to use bodyparser
+user_route.use(bodyParser.json());
+user_route.use(bodyParser.urlencoded({extended:true}))
+
 
 // middleware to use in all routes
 user_route.use(session({
@@ -26,10 +32,9 @@ user_route.use((req, res, next) => {
     next();
 });
 
+// requiring auth
+const auth = require("../middleware/auth");
 
-// middleware to use bodyparser
-user_route.use(bodyParser.json());
-user_route.use(bodyParser.urlencoded({extended:true}))
 
 // form submition get and post
 user_route.get('/register',auth.isLogout,userController.loadRegister);
