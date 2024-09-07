@@ -35,7 +35,7 @@ const insertUser = async(req,res) => {
         const userData = await user.save();
 
         if(userData){
-            res.render('registration',{message:"your registration has been success",messageType:'success'})
+            res.redirect('/login')
         }else{
             res.render('registration',{message:"your registration has been failed",messageType:'error'})
         }
