@@ -18,8 +18,11 @@ user_route.use(express.static('public'));
 user_route.use(bodyParser.json());
 user_route.use(bodyParser.urlencoded({extended:true}))
 
+const auth = require("../middleware/auth");
 
 // middleware to use in all routes
+user_route.use(auth.nocache)
+
 user_route.use(session({
     secret: config.sessionSecret,
     resave: false,             
@@ -27,13 +30,12 @@ user_route.use(session({
     cookie: { maxAge: 60000 } 
 }));
 
-user_route.use((req, res, next) => {
-    res.setHeader('Cache-Control', 'no-store');
-    next();
-});
+// user_route.use((req, res, next) => {
+//     res.setHeader('Cache-Control', 'no-store');
+//     next();
+// });
 
 // requiring auth
-const auth = require("../middleware/auth");
 
 
 // form submition get and post

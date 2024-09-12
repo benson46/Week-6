@@ -20,10 +20,10 @@
         <label for="email">New Email</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="text" name="contact" class="form-control" placeholder="New Phone Number" value="<%= user.contact %>">
+        <input type="text" name="contact" class="form-control" placeholder="New Phone Number" value="<%= user.mobile %>">
         <label for="contact">New Phone Number</label>
       </div>
-      <input type="hidden" name="id" value="<%= user._id %>">
+      <input type="hidden" name="_id" value="<%= user._id %>">
       <button type="submit" class="btn btn-primary w-100">Update User</button>
     </form>
     <div class="text-center mt-3">

@@ -1,28 +1,28 @@
 const isLogin = async(req,res,next)=>{
-    try {
-        if(req.session.user_id){}else{
-           return res.redirect('/login');
-        }
-        next();
-    } catch (error) {
-        console.log(error.message);
+    if (!req.session.user_id) {
+        return res.redirect('/login');
     }
+    next();
 }
 
 const isLogout = async(req,res,next)=>{
-    try {
-        if(req.session.user_id){
-           return res.redirect('/home');
-        }
-        next();
-
-    } catch (error) {
-        console.log(error.message);
+    if (req.session.user_id) {
+        return res.redirect('/home');
     }
+    next();
 }
+
+const nocache =  (req, res, next) => {
+    res.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.setHeader('Expires', '-1');
+    res.setHeader('Pragma', 'no-cache');
+    next();
+}
+
 
 
 module.exports ={
     isLogin,
-    isLogout
+    isLogout,
+    nocache
 }
